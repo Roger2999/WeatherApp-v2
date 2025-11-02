@@ -1,4 +1,8 @@
-export const fetchWeatherService = async (URL_BASE: string) => {
+import type { WeatherData } from "../types/types";
+
+export const fetchWeatherService = async (
+  URL_BASE: string
+): Promise<WeatherData> => {
   const response = await fetch(URL_BASE);
   if (!response.ok) {
     throw new Error(

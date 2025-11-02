@@ -3,11 +3,12 @@
     margin: 0;
     padding: 0;
 }
-.container{
+.container-box{
 display: flex;
 flex-direction: column;
 height: 100dvh;
-min-width: 100dvw;
+width: 100vw;
+overflow-x: hidden;
 }
 .content{
     display: flex;

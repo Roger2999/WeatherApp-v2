@@ -1,13 +1,11 @@
 import type { ReactNode } from "react";
-import { Footer, Header } from "./components";
+
 import "./WeatherApp.css";
 export const WeatherApp = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <div className="container">
-        <Header />
+      <div className="container-box">
         <div className="content">{children}</div>
-        <Footer />
       </div>
     </>
   );

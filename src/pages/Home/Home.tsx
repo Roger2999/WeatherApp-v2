@@ -1,16 +1,155 @@
 import { useState } from "react";
-import { useWeatherData } from "../../hooks/useWeatherData";
+import {
+  CitySearch,
+  CurrentTemp,
+  DailyForecast,
+  DailySelector,
+  DailyTemp,
+  WeatherData,
+} from "../../components";
+import { useDebounce } from "../../hooks/useDebounce";
+import "./Home.css";
+
+import { useWeather } from "../../hooks/useWeather";
+import type { Result } from "../../types/types";
+import { UnitSelector } from "../../components/UnitsSelector/UnitSelector";
+import type { weatherMap } from "../../utils/weatherIcons";
 
 export const Home = () => {
-  const URL_BASE = "https://api.openweathermap.org/data/2.5/weather";
-  const API_KEY = "8d2c3cd8dd7a4568d19d8581d57a871f";
-  const [city, setCity] = useState("Madrid");
-  const { data } = useWeatherData(`${URL_BASE}?q=${city}&appid=${API_KEY}`);
+  const [inputCity, setInputCity] = useState("");
+  const { debounceValue } = useDebounce(inputCity, 600);
+  const [coords, setCoords] = useState<{ lat: number; lon: number } | null>(
+    null
+  );
+
+  //customHook que maneja toda la logica
+  //fetch para obtener latitud y longitud de la ciudad
+  //fetch para obtener datos del clima
+  //manejo de estados de loading y error
+  //manejo de seleccion de dia y filtrado de datos por dia
+  const {
+    cityData,
+    weatherData,
+    isLoading,
+    isCityLoading,
+    isError,
+    selectedDay,
+    setSelectedDay,
+    currentTime,
+    unit,
+    hourlyUnits,
+    limit,
+  } = useWeather(debounceValue, coords);
+  const onSelectCity = (city: Result) => {
+    setCoords({ lat: city.latitude, lon: city.longitude });
+  };
   return (
     <>
-      <h1>Home</h1>
-      <p>Temperatura:</p>
-      <span>{data?.main?.temp}</span>
+      <div className="flex flex-col justify-start items-center h-full w-full gap-10 bg-[#02012b]">
+        <div className="flex justify-end w-full relative top-6 right-10">
+          <UnitSelector />
+        </div>
+
+        <h1 className="title text-center w-auto font-bold text-4xl mt-10">
+          How's the sky looking to day?
+        </h1>
+        <div className="flex justify-center w-5/6 search">
+          <CitySearch
+            onSelectCity={onSelectCity}
+            inputCity={inputCity}
+            setInputCity={setInputCity}
+            cityData={cityData}
+            isCityLoading={isCityLoading}
+          />
+        </div>
+        {/* <SearchInput city={city} setCity={setCity} /> */}
+
+        <>
+          {isError ? (
+            <p className="error w-fit m-auto">
+              Error al cargar los datos del clima. Por favor, intente de nuevo.
+            </p>
+          ) : (
+            <div className="box flex flex-row justify-center items-center w-11/12 h-full gap-5 mb-10">
+              <div className="container-1 flex justify-between  flex-col w-full max-w-[70rem] h-full">
+                <div className="temp-container flex justify-between items-center h-60 rounded-2xl p-10">
+                  {isLoading ? (
+                    <p className="text-xl">Loading...</p>
+                  ) : (
+                    <CurrentTemp
+                      weatherData={weatherData}
+                      cityData={cityData}
+                    />
+                  )}
+                </div>
+                <div className="weather-data  w-full my-3 mb-10">
+                  <WeatherData
+                    title="Feels Like"
+                    param={weatherData?.current?.apparent_temperature}
+                    unit={unit?.apparent_temperature}
+                  />
+                  <WeatherData
+                    title="Humidity"
+                    param={weatherData?.current?.relative_humidity_2m}
+                    unit={unit?.relative_humidity_2m}
+                  />
+                  <WeatherData
+                    title="Wind"
+                    param={weatherData?.current?.wind_speed_10m}
+                    unit={unit?.wind_speed_10m}
+                  />
+                  <WeatherData
+                    title="Precipitation"
+                    param={weatherData?.current?.precipitation}
+                    unit={unit?.precipitation}
+                  />
+                </div>
+                <h2 className="daily-title text-xl font-semibold">
+                  Daily Forecast
+                </h2>
+                <div className="daily-forecast w-full">
+                  {weatherData?.daily.time.length
+                    ? weatherData?.daily?.time.map((d, i) => (
+                        <div key={i}>
+                          <DailyForecast
+                            day={d}
+                            weatherCode={
+                              weatherData?.daily?.weather_code[
+                                i
+                              ] as keyof typeof weatherMap
+                            }
+                            max={weatherData?.daily?.temperature_2m_max[
+                              i
+                            ].toFixed(0)}
+                            min={weatherData?.daily?.temperature_2m_min[
+                              i
+                            ].toFixed(0)}
+                          />
+                        </div>
+                      ))
+                    : Array(7)
+                        .fill(null)
+                        .map((_, i) => (
+                          <div key={i}>
+                            <DailyForecast />
+                          </div>
+                        ))}
+                </div>
+              </div>
+              <div className="container-2 flex flex-col w-full max-w-[35rem] h-full items-center">
+                <DailyTemp hourlyData={limit} hourlyUnits={hourlyUnits}>
+                  <DailySelector
+                    selectedDay={selectedDay}
+                    onChange={setSelectedDay}
+                    currentTime={currentTime}
+                    days={weatherData?.daily?.time}
+                  />
+                </DailyTemp>
+              </div>
+            </div>
+          )}
+        </>
+      </div>
     </>
   );
 };
