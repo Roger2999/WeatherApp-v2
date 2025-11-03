@@ -46,11 +46,16 @@ export const Home = () => {
   return (
     <>
       <div className="flex flex-col justify-start items-center h-full w-full gap-10 bg-[#02012b]">
-        <div className="flex justify-end w-full relative top-6 right-10">
+        <div className="flex justify-between w-full relative top-8">
+          <img
+            src="/assets/images/logo.svg"
+            alt="logo"
+            className="logo ml-10"
+          />
           <UnitSelector />
         </div>
 
-        <h1 className="title text-center w-auto font-bold text-4xl mt-10">
+        <h1 className="title text-center w-auto font-bold text-4xl px-2">
           How's the sky looking to day?
         </h1>
         <div className="flex justify-center w-5/6 search">

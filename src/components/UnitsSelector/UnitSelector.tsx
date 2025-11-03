@@ -7,23 +7,20 @@ export const UnitSelector = () => {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <>
-      <div className="flex flex-col items-end absolute z-50">
+      <div className="flex flex-col items-end absolute right-0 z-50 gap-3">
         <button
-          className="bg-[#24253c] p-3 rounded-xl mb-4 text-xs"
+          className="btn-units bg-[#24253c] p-3 rounded-xl mr-10 text-xs"
           type="button"
           onClick={() => setOpen(!open)}
         >
           <div className="flex gap-3">
-            <img src="src\assets\images\icon-units.svg" alt="units-icon" />
+            <img src="/assets/images/icon-units.svg" alt="units-icon" />
             {"Units"}
-            <img
-              src="src\assets\images\icon-dropdown.svg"
-              alt="dropdown-icon"
-            />
+            <img src="/assets/images/icon-dropdown.svg" alt="dropdown-icon" />
           </div>
         </button>
         {open && (
-          <div className="flex flex-col gap-3 bg-slate-900 text-white p-4 rounded-xl w-64">
+          <div className="flex flex-col gap-3 bg-slate-900 text-white p-4 rounded-xl w-64 mx-10">
             {/* Temperatura */}
             <label className="flex flex-col">
               <span className="text-sm text-slate-400">Temperature</span>

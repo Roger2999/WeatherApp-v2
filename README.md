@@ -1,63 +1,87 @@
-# Frontend Mentor - App del Clima
+# WeatherApp-v2
 
-![Vista previa del diseño para el desafío de código de la App del Clima](./preview.jpg)
+Versión del desafío "App del Clima" de Frontend Mentor. Esta aplicación muestra el clima actual, pronósticos diarios y horarios, y permite cambiar entre unidades métricas e imperiales. Está construida con React + TypeScript, Vite y Tailwind CSS.
 
-## ¡Bienvenido! 👋
+## Vista rápida
 
-Gracias por revisar este desafío de desarrollo front-end.
+- Tecnología: React 19, TypeScript, Vite, Tailwind CSS, Zustand (store), @tanstack/react-query
+- API meteorológica: Open-Meteo (consumida desde los servicios en `src/services`)
+- Objetivo: reproducir el diseño del desafío Frontend Mentor y ofrecer interacción (búsqueda de ciudad, selector de unidades, pronóstico horario/diario).
 
-Los desafíos de [Frontend Mentor](https://www.frontendmentor.io) te ayudan a mejorar tus habilidades de programación mediante la creación de proyectos realistas.
+## Características
 
-**Para realizar este desafío, necesitas un buen entendimiento de HTML, CSS y JavaScript.**
+- Búsqueda de ciudades con resultados (componente `CitySearch` / `SearchInput`)
+- Visualización del clima actual (componente `CurrentTemp`)
+- Pronóstico diario y selector de día (`DailyForecast`, `DailySelector`)
+- Pronóstico por horas (`HourlyTemp`)
+- Selección de unidades (métricas/imperiales) con persistencia en store (`stores/unitsStore.ts`)
+- Hooks reutilizables para consultar datos (`hooks/useWeather.ts`, `useWeatherCity.ts`, `useWeatherData.ts`)
 
-## El desafío
+## Estructura principal del proyecto
 
-Tu reto es construir esta aplicación del clima usando la [API de Open-Meteo](https://open-meteo.com/) y lograr que se vea lo más similar posible al diseño.
+```
+src/
+	assets/        # imágenes y iconos
+	components/    # componentes React (CurrentTemp, DailyForecast, Header, Footer, ...)
+	hooks/         # hooks personalizados
+	pages/         # páginas (Home)
+	services/      # llamadas a APIs (fetchCityService, fetchWeatherService)
+	stores/        # Zustand store (unidades)
+	types/         # tipos TypeScript
+	utils/         # utilidades (constantes, helpers, icon mapping)
+```
 
-Puedes usar cualquier herramienta que desees para completar el desafío. Así que si hay algo que quieres practicar, siéntete libre de intentarlo.
+## Requisitos
 
-Tus usuarios deberían poder:
+- Node.js (v18+ recomendado)
+- npm o pnpm
 
-- Buscar información del clima ingresando una ubicación en la barra de búsqueda
-- Ver condiciones climáticas actuales incluyendo temperatura, icono del clima y detalles de ubicación
-- Ver métricas adicionales como temperatura "se siente como", porcentaje de humedad, velocidad del viento y cantidad de precipitación
-- Navegar por un pronóstico de 7 días con temperaturas máximas/mínimas diarias e iconos del clima
-- Ver un pronóstico horario mostrando cambios de temperatura durante el día
-- Cambiar entre diferentes días de la semana usando el selector en la sección de pronóstico horario
-- Alternar entre unidades de medida Imperial y Métrica mediante el menú desplegable
-- Cambiar entre unidades específicas de temperatura (Celsius y Fahrenheit) y unidades de medida para velocidad del viento (km/h y mph) y precipitación (milímetros) mediante el menú desplegable
-- Ver el diseño óptimo según el tamaño de pantalla de su dispositivo
-- Ver estados de hover y focus para todos los elementos interactivos de la página
+## Instalación y ejecución (PowerShell / Windows)
 
-¿Necesitas ayuda con el desafío? [Únete a nuestra comunidad](https://www.frontendmentor.io/community) y haz preguntas en el canal **#help**.
+Instala dependencias y arranca en modo desarrollo:
 
-## Dónde encontrar todo
+```powershell
+npm install
+npm run dev
+```
 
-Tu tarea es construir el proyecto según los diseños en la carpeta `/design`. Encontrarás versiones móvil y desktop del diseño.
+Construir para producción:
 
-Los diseños están en formato JPG estático. Usar JPGs significa que necesitarás usar tu mejor criterio para estilos como `font-size`, `padding` y `margin`.
+```powershell
+npm run build
+```
 
-## Construyendo tu proyecto
+Previsualizar build localmente:
 
-Siéntete libre de usar cualquier flujo de trabajo con el que te sientas cómodo. A continuación hay un proceso sugerido:
+```powershell
+npm run preview
+```
 
-1. Inicializa tu proyecto como un repositorio público en [GitHub](https://github.com/)
-2. Configura tu repositorio para publicar tu código en una dirección web
-3. Revisa los diseños para planificar cómo abordarás el proyecto
-4. Estructura tu contenido con HTML antes de agregar estilos
-5. Escribe los estilos base para tu proyecto
-6. Comienza a agregar estilos desde la parte superior de la página hacia abajo
+Ejecutar linter (ESLint):
 
-## Desplegando tu proyecto
+```powershell
+npm run lint
+```
 
-Recomendamos estos servicios gratuitos:
+## Configuración adicional
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+- La app consume la API pública de Open-Meteo a través de los servicios en `src/services`. No requiere clave API.
+- Si deseas cambiar comportamientos (por ejemplo, unidades por defecto), revisa `stores/unitsStore.ts`.
 
-## Envío de tu solución
+## Desarrollo y pruebas rápidas
 
-Envía tu solución en la plataforma para que el resto de la comunidad pueda verla. Sigue nuestra ["Guía completa para enviar soluciones"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) para consejos sobre cómo hacerlo.
+- Para añadir un nuevo componente sigue la convención del repo: crea la carpeta en `src/components`, añade `.tsx` y `.css` si aplica, y exporta en `src/components/index.ts`.
+- Los hooks y servicios ya existentes sirven como ejemplo para llamadas asíncronas y control de estado.
 
-**¡Diviértete construyendo!** 🚀
+## Contribuir
+
+1. Haz fork del repositorio
+2. Crea una rama con la feature o fix: `git checkout -b feat/nombre-feature`
+3. Haz tus cambios y commitea: `git commit -m "feat: descripción corta"`
+4. Abre un Pull Request
+
+Por favor, sigue las buenas prácticas de commits y agrega una descripción clara en el PR.
+
+## Licencia
+
+Este proyecto está abierto para uso educativo y práctica. Añade una licencia si lo vas a publicar públicamente (por ejemplo MIT).

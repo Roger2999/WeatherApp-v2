@@ -1,13 +1,17 @@
 import type { CityData, WeatherData } from "../../types/types";
+import { formatDate } from "../../utils/formatDate";
 import "./CurrentTemp.css";
 interface Props {
   weatherData: WeatherData | undefined;
   cityData?: CityData | undefined;
 }
 export const CurrentTemp = ({ weatherData, cityData }: Props) => {
+  const dataFormated = formatDate(
+    weatherData?.current.time ? weatherData?.current?.time : undefined
+  );
   return (
     <>
-      <section className="date flex flex-col">
+      <section className="date flex flex-col gap-3">
         {cityData?.results ? (
           <span className="text-2xl text-center font-semibold">
             {cityData.results[0]?.name}, {cityData.results[0]?.country}
@@ -15,12 +19,12 @@ export const CurrentTemp = ({ weatherData, cityData }: Props) => {
         ) : (
           <span className="text-2xl font-bold">-</span>
         )}
-        <span className="text-lg text-center">fecha</span>
+        <span className="text-lg text-center">{dataFormated}</span>
       </section>
       <section className="flex flex-row justify-center items-center px-10">
         <article className="w-full h-full">
           <img
-            src="src\assets\images\icon-sunny.webp"
+            src="/assets/images/icon-sunny.webp"
             alt="icon-temp"
             className="img min-w-24"
             width={150}
