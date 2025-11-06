@@ -18,9 +18,9 @@ export const DailyForecast = ({
   const formatedDatetoDay = formatDateToDay(day);
   return (
     <>
-      <div className="daily-card flex flex-col items-center justify-between bg-[#25253f] rounded-2xl py-3">
+      <div className="daily-card flex flex-col items-center justify-between bg-[#25253f] rounded-2xl py-3 text-white">
         <div className="">{formatedDatetoDay}</div>
-        <div>{Icon ? <Icon fontSize="large" /> : ""}</div>
+        <div>{Icon ? <Icon color="warning" fontSize="large" /> : ""}</div>
 
         <div className="flex flex-row justify-between items-center w-full px-4">
           <div className="">{max}</div>

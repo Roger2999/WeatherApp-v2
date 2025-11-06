@@ -16,19 +16,20 @@ interface Props {
     | undefined;
   children: ReactNode;
 }
+
 export const DailyTemp = ({ hourlyData, hourlyUnits, children }: Props) => {
   return (
-    <div className="daily flex flex-col justify-start items-center w-full h-full rounded-2xl p-5 bg-[#25253f]">
-      <div className="daily-header flex flex-row justify-between items-center w-full px-5 mb-16">
+    <div className="daily flex flex-col justify-start items-center w-full h-full rounded-2xl p-5 bg-[#25253f] text-gray-50">
+      <div className="daily-header flex flex-row justify-between items-center w-full px-5 mb-6">
         <p className="text-xl font-semibold">Hourly forecast</p>
         {children}
       </div>
-      <div className="flex flex-col justify-start items-center w-full h-full gap-2">
+      <div className="flex flex-col justify-start items-center w-full gap-2 overflow-y-auto max-h-[550px] pr-2">
         {hourlyData && hourlyData.length > 0
           ? hourlyData.map((t, i) => (
               <div
                 key={i}
-                className=" hourly-data flex flex-1 justify-between items-center w-full max-h-20 px-6 bg-[#2f2f49] rounded-lg shadow-2xl"
+                className="hourly-data flex justify-between items-center w-full max-h-20 px-6 py-3 bg-[#2f2f49] rounded-lg shadow-2xl"
               >
                 <HourlyTemp temp={t.temp} time={t.time} unit={hourlyUnits} />
               </div>
@@ -38,7 +39,7 @@ export const DailyTemp = ({ hourlyData, hourlyUnits, children }: Props) => {
               .map((_, i) => (
                 <div
                   key={i}
-                  className="hourly-data flex flex-1 justify-between items-center w-full max-h-20 px-6 bg-[#2f2f49] rounded-lg shadow-2xl"
+                  className="hourly-data flex justify-between items-center w-full max-h-20 px-6 py-3 bg-[#2f2f49] rounded-lg shadow-2xl"
                 >
                   <HourlyTemp />
                 </div>

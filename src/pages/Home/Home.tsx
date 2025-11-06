@@ -9,7 +9,6 @@ import {
 } from "../../components";
 import { useDebounce } from "../../hooks/useDebounce";
 import "./Home.css";
-
 import { useWeather } from "../../hooks/useWeather";
 import type { Result } from "../../types/types";
 import { UnitSelector } from "../../components/UnitsSelector/UnitSelector";
@@ -30,15 +29,16 @@ export const Home = () => {
   const {
     cityData,
     weatherData,
-    isLoading,
+    isWeatherLoading,
     isCityLoading,
-    isError,
+    isWeatherError,
     selectedDay,
     setSelectedDay,
     currentTime,
     unit,
     hourlyUnits,
-    limit,
+    //limit,
+    filtrated,
   } = useWeather(debounceValue, coords);
   const onSelectCity = (city: Result) => {
     setCoords({ lat: city.latitude, lon: city.longitude });
@@ -55,7 +55,7 @@ export const Home = () => {
           <UnitSelector />
         </div>
 
-        <h1 className="title text-center w-auto font-bold text-4xl px-2">
+        <h1 className="title text-center text-gray-50 w-auto font-bold text-4xl px-2">
           How's the sky looking to day?
         </h1>
         <div className="flex justify-center w-5/6 search">
@@ -67,21 +67,21 @@ export const Home = () => {
             isCityLoading={isCityLoading}
           />
         </div>
-        {/* <SearchInput city={city} setCity={setCity} /> */}
 
         <>
-          {isError ? (
-            <p className="error w-fit m-auto">
+          {isWeatherError ? (
+            <p className="error text-gray-50 text-4xl w-fit m-auto">
               Error al cargar los datos del clima. Por favor, intente de nuevo.
             </p>
           ) : (
             <div className="box flex flex-row justify-center items-center w-11/12 h-full gap-5 mb-10">
-              <div className="container-1 flex justify-between  flex-col w-full max-w-[70rem] h-full">
+              <div className="container-1 flex justify-between flex-col w-full max-w-[70rem] h-full">
                 <div className="temp-container flex justify-between items-center h-60 rounded-2xl p-10">
-                  {isLoading ? (
-                    <p className="text-xl">Loading...</p>
+                  {isWeatherLoading ? (
+                    <p className="text-xl text-gray-50 font-bold">Loading...</p>
                   ) : (
                     <CurrentTemp
+                      coords={coords}
                       weatherData={weatherData}
                       cityData={cityData}
                     />
@@ -109,7 +109,7 @@ export const Home = () => {
                     unit={unit?.precipitation}
                   />
                 </div>
-                <h2 className="daily-title text-xl font-semibold">
+                <h2 className="daily-title text-xl text-gray-50 font-semibold">
                   Daily Forecast
                 </h2>
                 <div className="daily-forecast w-full">
@@ -142,7 +142,7 @@ export const Home = () => {
                 </div>
               </div>
               <div className="container-2 flex flex-col w-full max-w-[35rem] h-full items-center">
-                <DailyTemp hourlyData={limit} hourlyUnits={hourlyUnits}>
+                <DailyTemp hourlyData={filtrated} hourlyUnits={hourlyUnits}>
                   <DailySelector
                     selectedDay={selectedDay}
                     onChange={setSelectedDay}

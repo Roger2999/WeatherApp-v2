@@ -1,14 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import type { CityData } from "../types/types";
+import { fetchCityService } from "../services/fetchCityService";
 
-export const useWeatherCity = (
-  URL_BASE: string,
-  queryFn: (URL_BASE: string) => Promise<CityData>
-) => {
+export const useWeatherCity = (URL_BASE: string, city: string | undefined) => {
   const { data, error, isError, isLoading } = useQuery({
-    queryKey: ["city", URL_BASE],
-    queryFn: () => queryFn(URL_BASE),
+    queryKey: ["city", URL_BASE, city],
+    queryFn: () => fetchCityService(URL_BASE),
     staleTime: 60000,
+    enabled: !!city,
   });
   return { data, error, isError, isLoading };
 };

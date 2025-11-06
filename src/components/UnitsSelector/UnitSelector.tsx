@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { unitsStore } from "../../stores/unitsStore";
+import { Select } from "./Select/Select";
 
 export const UnitSelector = () => {
   const { temp, wind, precipitation, setTemp, setWind, setPrecipitation } =
@@ -15,55 +16,42 @@ export const UnitSelector = () => {
         >
           <div className="flex gap-3">
             <img src="/assets/images/icon-units.svg" alt="units-icon" />
-            {"Units"}
+            <p className="text-gray-50">Units</p>
             <img src="/assets/images/icon-dropdown.svg" alt="dropdown-icon" />
           </div>
         </button>
         {open && (
           <div className="flex flex-col gap-3 bg-slate-900 text-white p-4 rounded-xl w-64 mx-10">
             {/* Temperatura */}
-            <label className="flex flex-col">
-              <span className="text-sm text-slate-400">Temperature</span>
-              <select
-                name="temp"
-                value={temp}
-                onChange={(e) =>
-                  setTemp(e.target.value as "celsius" | "fahrenheit")
-                }
-                className="bg-slate-800 border border-slate-700 rounded-lg p-2 mt-1"
-              >
-                <option value="celsius">Celsius (°C)</option>
-                <option value="fahrenheit">Fahrenheit (°F)</option>
-              </select>
-            </label>
 
-            {/* Velocidad del viento */}
-            <label className="flex flex-col">
-              <span className="text-sm text-slate-400">Wind Speed</span>
-              <select
-                value={wind}
-                onChange={(e) => setWind(e.target.value as "kmh" | "mph")}
-                className="bg-slate-800 border border-slate-700 rounded-lg p-2 mt-1"
-              >
-                <option value="kmh">km/h</option>
-                <option value="mph">mph</option>
-              </select>
-            </label>
-
-            {/* Precipitación */}
-            <label className="flex flex-col">
-              <span className="text-sm text-slate-400">Precipitation</span>
-              <select
-                value={precipitation}
-                onChange={(e) =>
-                  setPrecipitation(e.target.value as "mm" | "inch")
-                }
-                className="bg-slate-800 border border-slate-700 rounded-lg p-2 mt-1"
-              >
-                <option value="mm">Milímetros (mm)</option>
-                <option value="inch">Pulgadas (in)</option>
-              </select>
-            </label>
+            <Select
+              title="Temperature"
+              value={temp}
+              onChange={(e) =>
+                setTemp((e.target.value as "celsius") || "fahrenheit")
+              }
+            >
+              <option value="celsius">Celsius (°C)</option>
+              <option value="fahrenheit">Fahrenheit (°F)</option>
+            </Select>
+            <Select
+              title="Wind Speed"
+              value={wind}
+              onChange={(e) => setWind(e.target.value as "kmh" | "mph")}
+            >
+              <option value="kmh">km/h</option>
+              <option value="mph">mph</option>
+            </Select>
+            <Select
+              title="Wind Speed"
+              value={precipitation}
+              onChange={(e) =>
+                setPrecipitation(e.target.value as "mm" | "inch")
+              }
+            >
+              <option value="mm">Milímetros (mm)</option>
+              <option value="inch">Pulgadas (in)</option>
+            </Select>
           </div>
         )}
       </div>

@@ -2,9 +2,9 @@ export const combineHourlyData = (
   times: string[] | undefined,
   temps: number[] | undefined
 ) => {
-  const combinated = times?.map((t, temp) => ({
+  const combinated = times?.map((t, i) => ({
     time: t,
-    temp: temps && temps[temp],
+    temp: temps && temps[i],
   }));
 
   return combinated;

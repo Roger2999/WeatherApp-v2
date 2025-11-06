@@ -11,7 +11,8 @@ interface Props {
         results: Result[];
         generationtime_ms: number;
       }
-    | undefined;
+    | undefined
+    | null;
   isCityLoading: boolean;
 }
 export const CitySearch = ({
@@ -37,7 +38,9 @@ export const CitySearch = ({
           if (newValue) onSelectCity(newValue); // llama a la función onSelectCity con la ciudad seleccionada
         }}
         inputValue={inputCity} // valor del input
-        onInputChange={(_, newInputValue) => setInputCity(newInputValue)}
+        onInputChange={(_, newInputValue) => {
+          setInputCity(newInputValue);
+        }}
         sx={{
           width: 500,
           "& .MuiInputBase-root": {

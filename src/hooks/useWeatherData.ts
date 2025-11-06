@@ -5,13 +5,15 @@ export const useWeatherData = (
   coords: {
     lat: number;
     lon: number;
-  } | null
+  } | null,
+  city: string
 ) => {
   const { data, error, isError, isLoading } = useQuery({
-    queryKey: ["weatherData", URL, coords],
-    queryFn: () => fetchWeatherService(URL),
+    queryKey: ["weatherData", URL, coords, city],
+    queryFn: () =>
+      coords ? fetchWeatherService(URL) : Promise.reject("coords missing"),
     staleTime: 60000,
-    enabled: !!coords,
+    enabled: city.trim() != "" && !!coords,
   });
   return { data, error, isError, isLoading };
 };
