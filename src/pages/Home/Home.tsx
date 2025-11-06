@@ -34,7 +34,6 @@ export const Home = () => {
     isWeatherError,
     selectedDay,
     setSelectedDay,
-    currentTime,
     unit,
     hourlyUnits,
     //limit,
@@ -74,7 +73,7 @@ export const Home = () => {
               Error al cargar los datos del clima. Por favor, intente de nuevo.
             </p>
           ) : (
-            <div className="box flex flex-row justify-center items-center w-11/12 h-full gap-5 mb-10">
+            <div className="box flex flex-row justify-center items-center w-11/12 h-full gap-5 mb-5">
               <div className="container-1 flex justify-between flex-col w-full max-w-[70rem] h-full">
                 <div className="temp-container flex justify-between items-center h-60 rounded-2xl p-10">
                   {isWeatherLoading ? (
@@ -146,7 +145,6 @@ export const Home = () => {
                   <DailySelector
                     selectedDay={selectedDay}
                     onChange={setSelectedDay}
-                    currentTime={currentTime}
                     days={weatherData?.daily?.time}
                   />
                 </DailyTemp>

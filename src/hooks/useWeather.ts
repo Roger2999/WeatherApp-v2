@@ -41,7 +41,6 @@ export const useWeather = (
     }
   }, [weatherData]);
 
-  const currentTime = weatherData?.daily?.time?.[0];
   const unit = weatherData?.current_units;
   const hourlyUnits = weatherData?.hourly_units;
   const combinated = combineHourlyData(
@@ -59,7 +58,6 @@ export const useWeather = (
     isWeatherError,
     selectedDay,
     setSelectedDay,
-    currentTime,
     unit,
     hourlyUnits,
     limit,

@@ -24,7 +24,7 @@ export const DailyTemp = ({ hourlyData, hourlyUnits, children }: Props) => {
         <p className="text-xl font-semibold">Hourly forecast</p>
         {children}
       </div>
-      <div className="flex flex-col justify-start items-center w-full gap-2 overflow-y-auto max-h-[550px] pr-2">
+      <div className="flex flex-col justify-start items-center w-full h-full gap-2 overflow-y-auto max-h-[500px] pr-2">
         {hourlyData && hourlyData.length > 0
           ? hourlyData.map((t, i) => (
               <div
