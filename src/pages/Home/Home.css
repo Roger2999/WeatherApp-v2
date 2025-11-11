@@ -3,7 +3,19 @@
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 20px;
 }
-
+.weather-card{
+  transition: transform 0.5s ease ,background 0.5s ease;
+}
+.weather-card:hover{
+  background-color: #404066;
+  transform: scale(1.04);
+}
+.temp-container{
+  transition: transform 0.5s ease;
+}
+.temp-container:hover{
+  transform: scale(1.02);
+}
 .daily-forecast {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -11,6 +23,11 @@
 }
 .daily-card {
   min-height: 12rem;
+   transition: transform 0.5s ease ,background 0.5s ease;
+}
+.daily-card:hover{
+    background-color: #404066;
+  transform: scale(1.04);
 }
 .temp-container {
   background-image: url("../../assets/images/bg-today-large.svg");
@@ -28,11 +45,11 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 15px;
-    margin-top: 20px;
   }
   .daily-card {
     min-width: 5rem;
-    min-height: 11rem;
+    height: 100%;
+
   }
 }
 @media ((min-width: 571px) and (max-width:1199px)) {
@@ -107,7 +124,11 @@
     max-width: 95%;
     height: 11rem;
   }
+  .container-1{
+    min-width: auto;
+  }
   .container-2 {
+    min-width: auto;
     min-height: 40rem;
   }
   .logo{

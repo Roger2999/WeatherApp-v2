@@ -73,9 +73,9 @@ export const Home = () => {
               Error al cargar los datos del clima. Por favor, intente de nuevo.
             </p>
           ) : (
-            <div className="box flex flex-row justify-center items-center w-11/12 h-full gap-5 mb-5">
-              <div className="container-1 flex justify-between flex-col w-full max-w-[70rem] h-full">
-                <div className="temp-container flex justify-between items-center h-60 rounded-2xl p-10">
+            <div className="box flex flex-row justify-center items-start w-11/12 h-full gap-5 mb-5">
+              <div className="container-1 flex flex-col justify-stretch w-full max-w-[70rem] min-w-[20rem] h-full">
+                <div className="temp-container flex justify-between items-center min-h-64 rounded-2xl p-10">
                   {isWeatherLoading ? (
                     <p className="text-xl text-gray-50 font-bold">Loading...</p>
                   ) : (
@@ -86,7 +86,7 @@ export const Home = () => {
                     />
                   )}
                 </div>
-                <div className="weather-data  w-full my-3 mb-10">
+                <div className="weather-data  w-full my-3">
                   <WeatherData
                     title="Feels Like"
                     param={weatherData?.current?.apparent_temperature}
@@ -108,10 +108,10 @@ export const Home = () => {
                     unit={unit?.precipitation}
                   />
                 </div>
-                <h2 className="daily-title text-xl text-gray-50 font-semibold">
+                <h2 className="daily-title text-xl text-gray-50 font-semibold mt-7">
                   Daily Forecast
                 </h2>
-                <div className="daily-forecast w-full">
+                <div className="daily-forecast flex items-end w-full h-full">
                   {weatherData?.daily.time.length
                     ? weatherData?.daily?.time.map((d, i) => (
                         <div key={i}>
@@ -140,7 +140,7 @@ export const Home = () => {
                         ))}
                 </div>
               </div>
-              <div className="container-2 flex flex-col w-full max-w-[35rem] h-full items-center">
+              <div className="container-2 flex flex-col justify-stretch w-full max-w-[35rem] min-w-[15rem] h-full">
                 <DailyTemp hourlyData={filtrated} hourlyUnits={hourlyUnits}>
                   <DailySelector
                     selectedDay={selectedDay}
