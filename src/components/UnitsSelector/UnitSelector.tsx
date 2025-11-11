@@ -16,7 +16,7 @@ export const UnitSelector = () => {
     <>
       <div className="flex flex-col items-end absolute right-0 z-50 gap-3">
         <button
-          className="btn-units bg-[#24253c] p-3 rounded-xl mr-10 text-xs"
+          className="btn-units transition-all hover:bg-[#34354c] hover:translate-y-1 bg-[#24253c] p-3 rounded-xl mr-10 text-xs"
           type="button"
           onClick={() => setOpen(!open)}
         >
