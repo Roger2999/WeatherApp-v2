@@ -3,10 +3,12 @@
 Versión del desafío "App del Clima" de Frontend Mentor. Esta aplicación muestra el clima actual, pronósticos diarios y horarios, y permite cambiar entre unidades métricas e imperiales. Está construida con React + TypeScript, Vite y Tailwind CSS.
 
 ## Vista rápida
-
 - Tecnología: React 19, TypeScript, Vite, Tailwind CSS, Zustand (store), @tanstack/react-query
 - API meteorológica: Open-Meteo (consumida desde los servicios en `src/services`)
 - Objetivo: reproducir el diseño del desafío Frontend Mentor y ofrecer interacción (búsqueda de ciudad, selector de unidades, pronóstico horario/diario).
+
+## View live site
+https://openmeteo-weather.netlify.app/
 
 ## Características
 
