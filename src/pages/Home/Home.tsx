@@ -62,6 +62,10 @@ export const Home = () => {
             onSelectCity={onSelectCity}
             inputCity={inputCity}
             setInputCity={setInputCity}
+            onInputChange={() => {
+              // cuando el usuario escribe (no selecciona), limpiamos coords
+              setCoords(null);
+            }}
             cityData={cityData}
             isCityLoading={isCityLoading}
           />

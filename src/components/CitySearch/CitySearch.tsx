@@ -6,6 +6,7 @@ interface Props {
   onSelectCity: (city: Result) => void;
   inputCity: string;
   setInputCity: React.Dispatch<React.SetStateAction<string>>;
+  onInputChange?: (value: string) => void;
   cityData:
     | {
         results: Result[];
@@ -19,6 +20,7 @@ export const CitySearch = ({
   onSelectCity,
   inputCity,
   setInputCity,
+  onInputChange,
   cityData,
   isCityLoading,
 }: Props) => {
@@ -38,8 +40,13 @@ export const CitySearch = ({
           if (newValue) onSelectCity(newValue); // llama a la función onSelectCity con la ciudad seleccionada
         }}
         inputValue={inputCity} // valor del input
-        onInputChange={(_, newInputValue) => {
+        onInputChange={(_, newInputValue, reason) => {
           setInputCity(newInputValue);
+          // solo cuando el usuario está escribiendo (no al seleccionar una opción)
+          if (reason === "input") {
+            setSelectedCity(null); // limpia la selección previa
+            onInputChange?.(newInputValue);
+          }
         }}
         sx={{
           width: 500,
